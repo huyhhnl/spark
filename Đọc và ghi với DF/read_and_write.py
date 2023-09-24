@@ -6,7 +6,7 @@ from pyspark.sql.functions import spark_partition_id
 
 conf = SparkConf() \
     .setMaster('local') \
-    .setAppName('lap3')
+    .setAppName('myApp')
 
 spark = SparkSession.builder.config(conf=conf).getOrCreate()
 sc = spark.sparkContext
