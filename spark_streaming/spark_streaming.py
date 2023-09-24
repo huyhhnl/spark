@@ -4,7 +4,7 @@ from pyspark.sql.functions import expr
 
 spark = SparkSession \
     .builder \
-    .appName("File Streaming Demo") \
+    .appName("Streaming Demo") \
     .master("local[3]") \
     .config("spark.streaming.stopGracefullyOnShutdown", "true") \
     .config("spark.sql.streaming.schemaInference", "true") \
