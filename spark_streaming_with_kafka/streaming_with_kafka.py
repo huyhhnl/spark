@@ -3,7 +3,7 @@ from pyspark.sql.functions import from_json, col, expr
 from pyspark.sql.types import StructType, StructField, StringType, LongType, DoubleType, IntegerType, ArrayType
 
 spark = SparkSession.builder\
-                    .appName('lap9')\
+                    .appName('myapp')\
                     .master('local')\
                     .config("spark.streaming.stopGracefullyOnShutdown", "true")\
                     .getOrCreate()
