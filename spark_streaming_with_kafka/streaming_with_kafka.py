@@ -8,7 +8,7 @@ spark = SparkSession.builder\
                     .config("spark.streaming.stopGracefullyOnShutdown", "true")\
                     .getOrCreate()
 
-#Tạo schema cho dữ liệu đầu vào
+#Tạo schema cho dữ liệu đầu vào: đây là cấu trúc của dữ liệu 
 schema = StructType([
 	StructField("InvoiceNumber", StringType()),
 	StructField("CreatedTime", LongType()),
@@ -48,22 +48,22 @@ kafka_df = spark.readStream\
                 .option('startingOffsets', 'earliest')\
                 .load()
 
-# Chuyển dữ liệu từ dạng JSON về MapType()
+# Chuyển dữ liệu từ dạng JSON về MapType(): do dữ liệu trong kafka có dạng key-value nên phải chuyển về dạng DF
 value_df = kafka_df.select(from_json(col('value').cast('string'), schema).alias("value"))
 #Xử lý dữ liệu
 notification_df = value_df.select("value.InvoiceNumber", "value.CustomerCardNo", "value.TotalAmount") \
 	.withColumn("EarnedLoyaltyPoints", expr("TotalAmount * 0.2"))
 
 # Ghi dữ liệu ở dạng Kafka Sink
-# Chuyển đổi Dataframe về dạng key - value
+# Chuyển đổi Dataframe về dạng key - value: chuyển về dạng key-value sẵn sàng write vào kafka
 kafka_target_df = notification_df.selectExpr('InvoiceNumber as key', 
                                              """
-											to_json(named_struct(
+						to_json(named_struct(
                                             'CustomerCardNo', CustomerCardNo,
                                             'TotalAmount', TotalAmount,
                                             'EarnedLoyaltyPoints', TotalAmount * 0.2
-											)) as value
-											 """
+						)) as value
+						 """
                                              )
 notification_writer_query = kafka_target_df.writeStream\
 	.queryName('Notification Writer')\
@@ -71,7 +71,7 @@ notification_writer_query = kafka_target_df.writeStream\
     .option('kafka.bootstrap.servers', 'localhost:9092')\
     .option('topic', 'notifications')\
     .outputMode('append')\
-    .option('checkpointLocation', 'chk-point-dir/notify')\
+    .option('checkpointLocation', 'chk-point-dir/notify')\  # do đang write ra 2 data sink trong cùng ứng dụng nên vậy
     .start()
 
 # Trích xuất các dữ liệu
