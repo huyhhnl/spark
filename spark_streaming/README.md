@@ -1,1 +1,6 @@
-
+- config("spark.streaming.stopGracefullyOnShutdown", "true") để khi ứng dụng tắt vì lý do bảo trì hay lỗi thì nó duy trì các đặc điểm Exactly Once. Exactly Once có 2 điều:
+  - Không bỏ xót bất kì bản ghi đầu vào nào
+  - Không tạo bản ghi đầu ra trùng lặp
+- config("spark.sql.streaming.schemaInference", "true"): bình thường thì spark sẽ disable schemaInference
+- option('maxFilesPerTrigger', '1'): chỉ định chỉ đọc 1 file mỗi micro-batch
+- outputMode('append'): mode là append thì sẽ chỉ ghi các bản ghi mới
