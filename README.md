@@ -6,13 +6,13 @@
 ## 6. Data Aggregations và Join trên Spark
 ## 7. Spark Streaming
 ## 8. Đọc dữ liệu với Kafka Source và các phép Join với Stream
-### 8.1. Join 1 streaning DF với 1 DF tĩnh
-### 8.2. Join 1 streaming DF vs streaming DF
-### 8.3. Streaming Watermark
-### 8.4. Streaming outer joins
+ ### 8.1. Join 1 streaning DF với 1 DF tĩnh
+ ### 8.2. Join 1 streaming DF vs streaming DF
+ ### 8.3. Streaming Watermark
+ ### 8.4. Streaming outer joins
 ## 9. Streaming Windowing và Aggregates
-### 9.1 Stateless transformation và statefull transformation
-### 9.2 Tumbling window và sliding window
+ ### 9.1 Stateless transformation và statefull transformation
+ ### 9.2 Tumbling window và sliding window
 ## 10. 1 số thông tin
 - config("spark.streaming.stopGracefullyOnShutdown", "true") để khi ứng dụng tắt vì lý do bảo trì hay lỗi thì nó duy trì các đặc điểm Exactly Once. Exactly Once có 2 điều:
   - Không bỏ xót bất kì bản ghi đầu vào nào
