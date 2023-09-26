@@ -34,6 +34,5 @@ File csv chứa các thông tin liên quan đến câu trả lời và có cấu
 
 - Body: Nội dung câu trả lời.
 ## 3. Đưa dữ liệu vào MongoDB
-- mongoimport --type csv -d <database> -c <collection> --headerline --drop <file>
 ## 4.  Đọc dữ liệu từ MongoDB với Spark
 - Lưu ý về cách đọc ghi giữa các phiên bản mongo
